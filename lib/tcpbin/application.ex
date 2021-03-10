@@ -8,7 +8,7 @@ defmodule Tcpbin.Application do
   def start(_type, _args) do
     children = [
       # Start the Telemetry supervisor
-      TcpbinWeb.Telemetry,
+      # TcpbinWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Tcpbin.PubSub},
       {Registry, name: Registry, keys: :unique},
