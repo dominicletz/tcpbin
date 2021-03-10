@@ -19,7 +19,7 @@ defmodule TcpbinWeb.BinLive do
 
       [] ->
         socket = put_flash(socket, :error, "Bin '#{id}' not found")
-        {:noreply, push_redirect(socket, to: "/")}
+        {:ok, push_redirect(socket, to: "/")}
     end
   end
 
