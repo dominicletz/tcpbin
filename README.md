@@ -1,4 +1,4 @@
-# Live tcpbin
+# Live tcpbin on https://tcpbin.net
 
 Live tcpbin is inspired by https://ptsv2.com/ and creates a new bucket + tcp port for each session.
 
