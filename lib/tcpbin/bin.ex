@@ -2,7 +2,7 @@ defmodule TcpBin.Bin do
   use GenServer
   alias TcpBin.Bin
   require Logger
-  defstruct [:id, :packets, :socket, :acceptor, :created]
+  defstruct [:id, :packets, :socket, :acceptor, :created, :clients]
 
   def start() do
     id = "#{rand(5)}-#{System.os_time(:second)}"
@@ -18,7 +18,14 @@ defmodule TcpBin.Bin do
     acc = spawn_link(fn -> accept(socket, pid) end)
 
     {:ok,
-     %Bin{id: id, packets: [], socket: socket, acceptor: acc, created: NaiveDateTime.utc_now()}}
+     %Bin{
+       id: id,
+       packets: [],
+       socket: socket,
+       acceptor: acc,
+       created: NaiveDateTime.utc_now(),
+       clients: %{}
+     }}
   end
 
   def subscribe(id) do
@@ -50,33 +57,27 @@ defmodule TcpBin.Bin do
   end
 
   @impl true
-  def handle_info({:tcp_open, port}, %Bin{id: id, packets: packets} = bin) do
-    add_packet(bin, %{
-      created: NaiveDateTime.utc_now(),
-      from: :inet.peername(port),
-      type: :open
-    })
+  def handle_info({:tcp_open, port}, %Bin{clients: clients} = bin) do
+    bin = %Bin{bin | clients: Map.put(clients, port, :inet.peername(port))}
+    add_packet(bin, port, %{type: :open})
   end
 
   @impl true
-  def handle_info({:tcp_closed, port}, %Bin{id: id, packets: packets} = bin) do
-    add_packet(bin, %{
-      created: NaiveDateTime.utc_now(),
-      from: :inet.peername(port),
-      type: :close
-    })
+  def handle_info({:tcp_closed, port}, bin) do
+    add_packet(bin, port, %{type: :close})
   end
 
   def handle_info({:tcp, port, data}, bin) do
-    add_packet(bin, %{
-      created: NaiveDateTime.utc_now(),
-      from: :inet.peername(port),
-      data: data,
-      type: :data
-    })
+    add_packet(bin, port, %{data: data, type: :data})
   end
 
-  defp add_packet(%Bin{id: id, packets: packets} = bin, packet) do
+  defp add_packet(%Bin{id: id, packets: packets, clients: clients} = bin, port, packet) do
+    packet =
+      Map.merge(packet, %{
+        created: NaiveDateTime.utc_now(),
+        from: Map.get(clients, port)
+      })
+
     publish(id, packet)
     {:noreply, %Bin{bin | packets: [packet | packets]}}
   end

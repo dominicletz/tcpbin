@@ -102,6 +102,7 @@
   display: block;
   text-align: center;
   background-color: #f4f5f6;
+  border-left: .3rem solid #0069d9;
   border-bottom: .3rem solid #0069d9;
 }
 
@@ -111,8 +112,18 @@
   text-align: center;
   background-color: #f4f5f6;
   border-top: .3rem solid #0069d9;
+  border-left: .3rem solid #0069d9;
 }
 
 .from, .received {
   font-size: 80%;
+}
+
+table.data {
+  td {
+    padding: 0.2rem 0.5rem;
+  }
+  pre {
+    margin: 0;
+  }
 }

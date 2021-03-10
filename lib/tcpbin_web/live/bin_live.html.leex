@@ -17,7 +17,8 @@
 </section>
 
 <section>
-  <table>
+<%= if length(@packets) > 0 do %>
+  <table class="data">
     <tr>
       <th>From</th>
       <th>Received</th>
@@ -38,4 +39,14 @@
     </tr>
   <% end %>
   </table>
+<% else %>
+<h2>There is no data yet in this bin</h2>
+
+<p>To test this bin you can run this:</p>
+
+<pre>
+nc <%= Tcpbin.host() %> <%= @port %></td>
+</pre>
+
+<% end %>
 </section>
