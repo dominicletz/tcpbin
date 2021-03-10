@@ -1,0 +1,36 @@
+<section>
+  <h1>bin <%= @id %></h1>
+  <table>
+    <tr>
+      <td>ID</td>
+      <td><%= @id %></td>
+    </tr>
+    <tr>
+      <td>TCP Port</td>
+      <td><%= @port %></td>
+    </tr>
+    <tr>
+      <td>Created</td>
+      <td><%=  @created %></td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <table>
+    <tr>
+      <th>Received</th>
+      <th>Data</th>
+    </tr>
+  <%= for packet <- @packets do %>
+    <tr>
+      <td>
+        <%= render_from(packet.from) %><br/>
+        <%= NaiveDateTime.truncate(packet.created, :second) %>
+      </td>
+      <td><pre><%= render_data(packet.data) %></pre></td>
+      <td><span class="hex"><%= render_hex(packet.data) %></span></td>
+    </tr>
+  <%= end %>
+  </table>
+</section>

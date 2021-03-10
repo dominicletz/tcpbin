@@ -1,0 +1,2 @@
+#!/bin/sh
+exec iex -S mix phx.server

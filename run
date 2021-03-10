@@ -1,0 +1,9 @@
+#!/bin/sh
+ulimit -n 120000
+export SECRET_KEY_BASE=dfskfjwel2
+export ERL_CRASH_DUMP_BYTES=5000000000
+export ERL_EPMD_ADDRESS=127.0.0.1
+export MIX_ENV=prod
+mix deps.get
+export ELIXIR_ERL_OPTIONS='+sbwt none -noinput -noshell -sname tcpbin +Mea min'
+exec iex -S mix phx.server
