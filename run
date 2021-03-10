@@ -1,5 +1,8 @@
 #!/bin/sh
 ulimit -n 120000
+export HOST=tcpbin.net
+export SSL_KEY_PATH=/etc/letsencrypt/live/tcpbin.net/privkey.pem
+export SSL_CERT_PATH=/etc/letsencrypt/live/tcpbin.net/fullchain.pem
 export SECRET_KEY_BASE=dfskfjwel2
 export ERL_CRASH_DUMP_BYTES=5000000000
 export ERL_EPMD_ADDRESS=127.0.0.1
