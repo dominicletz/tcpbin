@@ -18,17 +18,9 @@ defmodule TcpbinWeb.BinLive do
          )}
 
       [] ->
-        {:error, :not_found}
-        # render(ErrorView, "404.html")
-        # raise Ecto.NoResultsError
-        # {:error, :not_found}
+        socket = put_flash(socket, :error, "Bin '#{id}' not found")
+        {:noreply, push_redirect(socket, to: "/")}
     end
-  end
-
-  @impl true
-  def handle_event("create", %{}, socket) do
-    id = Bin.start()
-    {:noreply, push_redirect(socket, to: "/bin/#{id}/")}
   end
 
   @impl true
