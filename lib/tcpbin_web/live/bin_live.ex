@@ -18,7 +18,7 @@ defmodule TcpbinWeb.BinLive do
          )}
 
       [] ->
-        socket = put_flash(socket, :error, "Bin '#{id}' not found")
+        socket = put_flash(socket, :info, "Bin '#{id}' doesn't exist anymore... Please create a new bin")
         {:ok, push_redirect(socket, to: "/")}
     end
   end
