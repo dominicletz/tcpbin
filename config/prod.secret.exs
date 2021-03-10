@@ -11,5 +11,4 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
-config :tcpbin, TcpbinWeb.Endpoint,
-  secret_key_base: secret_key_base
+config :tcpbin, TcpbinWeb.Endpoint, secret_key_base: secret_key_base

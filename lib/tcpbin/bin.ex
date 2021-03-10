@@ -50,15 +50,35 @@ defmodule TcpBin.Bin do
   end
 
   @impl true
-  def handle_info({:tcp, port, data}, %Bin{id: id, packets: packets} = bin) do
-    packet = %{
+  def handle_info({:tcp_open, port}, %Bin{id: id, packets: packets} = bin) do
+    add_packet(bin, %{
       created: NaiveDateTime.utc_now(),
       from: :inet.peername(port),
-      data: data
-    }
+      type: :open
+    })
+  end
 
+  @impl true
+  def handle_info({:tcp_closed, port}, %Bin{id: id, packets: packets} = bin) do
+    add_packet(bin, %{
+      created: NaiveDateTime.utc_now(),
+      from: :inet.peername(port),
+      type: :close
+    })
+  end
+
+  def handle_info({:tcp, port, data}, bin) do
+    add_packet(bin, %{
+      created: NaiveDateTime.utc_now(),
+      from: :inet.peername(port),
+      data: data,
+      type: :data
+    })
+  end
+
+  defp add_packet(%Bin{id: id, packets: packets} = bin, packet) do
     publish(id, packet)
-    {:noreply, %Bin{bin | packets: packets ++ [packet]}}
+    {:noreply, %Bin{bin | packets: [packet | packets]}}
   end
 
   defp call(id, args) do
@@ -70,7 +90,8 @@ defmodule TcpBin.Bin do
     case :gen_tcp.accept(listener) do
       {:ok, socket} ->
         :ok = :gen_tcp.controlling_process(socket, pid)
-        :ok = :inet.setopts(socket, active: :once)
+        send(pid, {:tcp_open, socket})
+        :ok = :inet.setopts(socket, active: true)
 
       # GenServer.cast(:accept, socket)
       {:error, err} ->

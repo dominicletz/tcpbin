@@ -18,7 +18,9 @@ defmodule TcpbinWeb.BinLive do
          )}
 
       [] ->
-        socket = put_flash(socket, :info, "Bin '#{id}' doesn't exist anymore... Please create a new bin")
+        socket =
+          put_flash(socket, :info, "Bin '#{id}' doesn't exist anymore... Please create a new bin")
+
         {:ok, push_redirect(socket, to: "/")}
     end
   end
@@ -26,7 +28,7 @@ defmodule TcpbinWeb.BinLive do
   @impl true
   def handle_info(packet, socket) do
     packets = socket.assigns.packets
-    {:noreply, assign(socket, packets: packets ++ [packet])}
+    {:noreply, assign(socket, packets: [packet | packets])}
   end
 
   defp render_from({:ok, {ip, port}}) do

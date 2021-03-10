@@ -19,17 +19,22 @@
 <section>
   <table>
     <tr>
+      <th>From</th>
       <th>Received</th>
       <th>Data</th>
+      <th>Hex</th>
     </tr>
   <%= for packet <- @packets do %>
     <tr>
-      <td>
-        <%= render_from(packet.from) %><br/>
-        <%= NaiveDateTime.truncate(packet.created, :second) %>
-      </td>
-      <td><pre><%= render_data(packet.data) %></pre></td>
-      <td><span class="hex"><%= render_hex(packet.data) %></span></td>
+      <td class="from"><%= render_from(packet.from) %></td>
+      <td class="received"><%= NaiveDateTime.to_time(packet.created) %></td>
+      <%= if packet.type == :data do %>
+        <td><pre><%= render_data(packet.data) %></pre></td>
+        <td><span class="hex"><%= render_hex(packet.data) %></span></td>
+      <% else %>
+        <td colspan="2"><span class="<%= packet.type %>"><%= packet.type %></span></td>
+      <% end %>
+
     </tr>
   <% end %>
   </table>

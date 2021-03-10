@@ -11,4 +11,4 @@ mix deps.get
 npm run deploy --prefix ./assets
 mix phx.digest
 export ELIXIR_ERL_OPTIONS='+sbwt none -noinput -noshell -sname tcpbin +Mea min'
-exec iex -S mix phx.server
+exec elixir -S mix phx.server >> tcpbin.log
