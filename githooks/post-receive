@@ -1,0 +1,6 @@
+#!/bin/sh
+unset GIT_DIR
+APP=/opt/tcpbin
+cd $APP && git checkout -f
+svc -d $APP
+svc -u $APP
