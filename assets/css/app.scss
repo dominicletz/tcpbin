@@ -125,5 +125,11 @@ table.data {
   }
   pre {
     margin: 0;
+    word-break: break-all;
+    white-space: break-spaces;
   }
+}
+
+body {
+  margin: 0;
 }

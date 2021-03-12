@@ -28,7 +28,18 @@ defmodule TcpbinWeb.BinLive do
   @impl true
   def handle_info(packet, socket) do
     packets = socket.assigns.packets
-    {:noreply, assign(socket, packets: [packet | packets])}
+    {:noreply, collect(assign(socket, packets: [packet | packets]))}
+  end
+
+  def collect(socket) do
+    receive do
+      packet ->
+        packets = socket.assigns.packets
+        collect(assign(socket, packets: [packet | packets]))
+    after
+      0 ->
+        socket
+    end
   end
 
   defp render_from({:ok, {ip, port}}) do

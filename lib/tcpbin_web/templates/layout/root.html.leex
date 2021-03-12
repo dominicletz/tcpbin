@@ -10,15 +10,13 @@
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
+    <a href="https://github.com/dominicletz/tcpbin/">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    </a>
     <header>
       <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://github.com/dominicletz/tcpbin/">Fork me on Github</a></li>
-          </ul>
-        </nav>
-        <a href="https://tcpbin.net/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/tcpbin.png") %>" alt="Phoenix Framework Logo"/>
+        <a href="/" class="phx-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/tcpbin.png") %>" alt="TCP debug server"/>
         </a>
       </section>
     </header>

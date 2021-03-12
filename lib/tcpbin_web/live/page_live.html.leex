@@ -1,13 +1,25 @@
 <section class="phx-hero">
-  <h1>tcpbin.net</h1>
-  <p>Create your own bin</p>
-
+  <h1><%= Tcpbin.host() %></h1>
   <form phx-submit="create">
-    <button type="submit" phx-disable-with="Creating...">New Bin</button>
+    <button type="submit" phx-disable-with="Creating...">Create New Bin</button>
   </form>
 </section>
 
 <section>
-  <h2></h2>
+  tcpbin.net is a TCP server service for debugging your TCP connections.
 
+  <h2>Features</h2>
+
+  <ul>
+    <li>TCP dump server (click "CREATE NEW BIN" to get a port)</li>
+  </ul>
+
+  <h2>How to use?</h2>
+
+  Open a TCP connection from a Linux/MacOS/WSL shell and send some data:
+  <pre>
+    $ nc <%= Tcpbin.host() %> <YOUR_BIN_PORT>
+    Hello server!
+    Hello server!
+  </pre>
 </section>
