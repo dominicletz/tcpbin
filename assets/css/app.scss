@@ -97,6 +97,11 @@
   display: block;
 }
 
+pre.udp {
+  border-left: .3rem solid #69d900;
+  background-color: #daffda;
+}
+
 .open {
   text-transform: uppercase;
   display: block;
@@ -119,14 +124,17 @@
   font-size: 80%;
 }
 
-table.data {
-  td {
-    padding: 0.2rem 0.5rem;
-  }
+table {
   pre {
     margin: 0;
     word-break: break-all;
     white-space: break-spaces;
+  }
+}
+
+table.data {
+  td {
+    padding: 0.2rem 0.5rem;
   }
 }
 

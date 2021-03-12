@@ -2,7 +2,7 @@ defmodule TcpBin.Bin do
   use GenServer
   alias TcpBin.Bin
   require Logger
-  defstruct [:id, :packets, :socket, :acceptor, :created, :clients]
+  defstruct [:id, :packets, :socket, :udp_socket, :acceptor, :created, :clients]
 
   def start() do
     id = "#{rand(5)}-#{System.os_time(:second)}"
@@ -14,6 +14,8 @@ defmodule TcpBin.Bin do
   def init([id]) do
     {:ok, _} = Registry.register(Registry, id, self())
     {:ok, socket} = :gen_tcp.listen(0, mode: :binary, packet: :raw, active: false)
+    {:ok, port} = :inet.port(socket)
+    {:ok, udp} = :gen_udp.open(port, mode: :binary, active: true)
     pid = self()
     acc = spawn_link(fn -> accept(socket, pid) end)
 
@@ -22,6 +24,7 @@ defmodule TcpBin.Bin do
        id: id,
        packets: [],
        socket: socket,
+       udp_socket: udp,
        acceptor: acc,
        created: NaiveDateTime.utc_now(),
        clients: %{}
@@ -65,6 +68,12 @@ defmodule TcpBin.Bin do
   @impl true
   def handle_info({:tcp_closed, port}, bin) do
     add_packet(bin, port, %{type: :close})
+  end
+
+  def handle_info({:udp, _socket, ip, in_port_no, data}, %Bin{clients: clients} = bin) do
+    port = {ip, in_port_no}
+    bin = %Bin{bin | clients: Map.put(clients, port, {:ok, {ip, in_port_no}})}
+    add_packet(bin, port, %{data: data, type: :udp})
   end
 
   def handle_info({:tcp, port, data}, bin) do

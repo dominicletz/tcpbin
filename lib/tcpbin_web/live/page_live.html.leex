@@ -6,20 +6,26 @@
 </section>
 
 <section>
-  tcpbin.net is a TCP server service for debugging your TCP connections.
+  <p>
+    tcpbin.net is a TCP server service for debugging your TCP connections.
+  </p>
 
   <h2>Features</h2>
-
+  <p>
+    Click "CREATE NEW BIN" to get a port and you get:
+  </p>
   <ul>
-    <li>TCP dump server (click "CREATE NEW BIN" to get a port)</li>
+    <li>TCP inspection</li>
+    <li>UDP inspection</li>
   </ul>
 
   <h2>How to use?</h2>
 
-  Open a TCP connection from a Linux/MacOS/WSL shell and send some data:
+  <p>
+    Once you have created a new bin you can open a TCP connection from a Linux/MacOS/WSL shell and send some data:
+  </p>
   <pre>
     $ nc <%= Tcpbin.host() %> <YOUR_BIN_PORT>
-    Hello server!
-    Hello server!
+    Hello World!
   </pre>
 </section>
