@@ -13,6 +13,7 @@ defmodule TcpBin.Bin do
   @impl true
   def init([id]) do
     {:ok, _} = Registry.register(Registry, id, self())
+    publish_count()
     {:ok, socket} = :gen_tcp.listen(0, mode: :binary, packet: :raw, active: false)
     {:ok, port} = :inet.port(socket)
     {:ok, udp} = :gen_udp.open(port, mode: :binary, active: true)
@@ -37,6 +38,18 @@ defmodule TcpBin.Bin do
 
   def publish(id, data) do
     :ok = Phoenix.PubSub.broadcast(Tcpbin.PubSub, id, data)
+  end
+
+  def subscribe_count() do
+    :ok = Phoenix.PubSub.subscribe(Tcpbin.PubSub, "bin_count")
+  end
+
+  def publish_count() do
+    :ok = Phoenix.PubSub.broadcast(Tcpbin.PubSub, "bin_count", count())
+  end
+
+  def count() do
+    Registry.count(Registry)
   end
 
   def created(id), do: call(id, :created)

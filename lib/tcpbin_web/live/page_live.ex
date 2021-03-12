@@ -4,7 +4,13 @@ defmodule TcpbinWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    Bin.subscribe_count()
+    {:ok, assign(socket, count: Bin.count())}
+  end
+
+  @impl true
+  def handle_info(count, socket) when is_integer(count) do
+    {:noreply, assign(socket, count: count)}
   end
 
   @impl true

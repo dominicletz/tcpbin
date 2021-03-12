@@ -1,5 +1,6 @@
 <section class="phx-hero">
   <h1><%= Tcpbin.host() %></h1>
+  <p>There are <%= @count %> active bins</p>
   <form phx-submit="create">
     <button type="submit" phx-disable-with="Creating...">Create New Bin</button>
   </form>
