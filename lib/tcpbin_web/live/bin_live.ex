@@ -14,7 +14,8 @@ defmodule TcpbinWeb.BinLive do
            id: id,
            created: Bin.created(id),
            port: Bin.port(id),
-           packets: Bin.packets(id)
+           packets: Bin.packets(id),
+           page_title: "Bin #{id}"
          )}
 
       [] ->
