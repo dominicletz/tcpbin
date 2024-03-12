@@ -33,6 +33,7 @@ defmodule Tcpbin.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:certmagex, "~> 1.0.0"},
       {:phoenix, "~> 1.5.7"},
       {:phoenix_live_view, "~> 0.15.0"},
       {:floki, ">= 0.27.0", only: :test},
