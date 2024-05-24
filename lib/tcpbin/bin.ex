@@ -130,6 +130,6 @@ defmodule TcpBin.Bin do
   end
 
   defp rand() do
-    Enum.random('0123456789abcdefghijklmnopqrstuvwxyz')
+    Enum.random(~c"0123456789abcdefghijklmnopqrstuvwxyz")
   end
 end

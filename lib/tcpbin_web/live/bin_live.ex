@@ -51,7 +51,7 @@ defmodule TcpbinWeb.BinLive do
     inspect(other)
   end
 
-  @chars '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()-_=+{}[]\\|"\':;/?.>,<\n\t '
+  @chars ~c'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()-_=+{}[]\\|"\':;/?.>,<\n\t '
   defp render_data(data) do
     :binary.bin_to_list(data)
     |> Enum.map(fn c -> if c in @chars, do: c, else: ?. end)
