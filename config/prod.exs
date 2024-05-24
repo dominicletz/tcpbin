@@ -14,17 +14,19 @@ config :tcpbin, TcpbinWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger, level: :debug
 
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
 # to the previous section and set your `:url` port to 443:
 #
+port = 443
+
 config :tcpbin, TcpbinWeb.Endpoint,
-  url: [host: System.get_env("HOST"), port: 443],
+  url: [host: System.get_env("HOST"), port: port],
   https: [
-    port: 443,
+    port: port,
     cipher_suite: :strong,
     sni_fun: &CertMagex.sni_fun/1,
     transport_options: [socket_opts: [:inet6]]

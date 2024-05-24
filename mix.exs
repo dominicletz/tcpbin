@@ -34,6 +34,7 @@ defmodule Tcpbin.MixProject do
   defp deps do
     [
       {:certmagex, "~> 1.0.0"},
+      {:zerossl, github: "dominicletz/zerossl", override: true, runtime: false},
       {:phoenix, "~> 1.5.7"},
       {:phoenix_live_view, "~> 0.15.0"},
       {:floki, ">= 0.27.0", only: :test},
