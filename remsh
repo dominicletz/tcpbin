@@ -1,0 +1,9 @@
+#!/bin/sh
+. ~/.asdf/asdf.sh
+if [ -f ./.env ]; then
+    . ./.env
+fi
+export ERL_EPMD_ADDRESS=127.0.0.1
+export MIX_ENV=prod
+export SNAME="tcpbin"
+exec iex --sname remsh_$$ --remsh $SNAME
