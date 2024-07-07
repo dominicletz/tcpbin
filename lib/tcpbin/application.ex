@@ -5,15 +5,16 @@ defmodule Tcpbin.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
     children = [
-      # Start the PubSub system
+      TcpbinWeb.Telemetry,
+      {DNSCluster, query: Application.get_env(:tcpbin, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Tcpbin.PubSub},
-      {Registry, name: Registry, keys: :unique},
-      # Start the Endpoint (http/https)
-      TcpbinWeb.Endpoint
       # Start a worker by calling: Tcpbin.Worker.start_link(arg)
-      # {Tcpbin.Worker, arg}
+      # {Tcpbin.Worker, arg},
+      # Start to serve requests, typically the last entry
+      TcpbinWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -24,6 +25,7 @@ defmodule Tcpbin.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @impl true
   def config_change(changed, _new, removed) do
     TcpbinWeb.Endpoint.config_change(changed, removed)
     :ok

@@ -19,15 +19,15 @@ defmodule TcpbinWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint TcpbinWeb.Endpoint
+
+      use TcpbinWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import TcpbinWeb.ConnCase
-
-      alias TcpbinWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint TcpbinWeb.Endpoint
     end
   end
 

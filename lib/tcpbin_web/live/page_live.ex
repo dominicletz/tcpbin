@@ -16,6 +16,6 @@ defmodule TcpbinWeb.PageLive do
   @impl true
   def handle_event("create", %{}, socket) do
     id = Bin.start()
-    {:noreply, push_redirect(socket, to: "/bin/#{id}/")}
+    {:noreply, push_navigate(socket, to: "/bin/#{id}/")}
   end
 end

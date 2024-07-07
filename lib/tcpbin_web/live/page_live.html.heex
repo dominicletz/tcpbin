@@ -1,5 +1,5 @@
 <section class="phx-hero">
-  <h1><%= Tcpbin.host() %></h1>
+  <h1><%= App.host() %></h1>
   <p>There are <%= @count %> active bins</p>
   <form phx-submit="create">
     <button type="submit" phx-disable-with="Creating...">Create New Bin</button>
@@ -9,9 +9,15 @@
 <section>
   <p>
     tcpbin.net is a TCP server service for debugging your TCP connections written with
-    <b>Phoenix.LiveView</b> - If you want to learn more about LiveView have look
-    <a target="_blank" href="https://www.youtube.com/watch?v=MZvmYaFkNJI">at this sweet Twitter Clone video</a>
-    or jump to it's <a target="_blank" href="https://github.com/phoenixframework/phoenix_live_view">GitHub Page</a>!
+    <b>Phoenix.LiveView</b>
+    - If you want to learn more about LiveView have look
+    <a target="_blank" href="https://www.youtube.com/watch?v=MZvmYaFkNJI">
+      at this sweet Twitter Clone video
+    </a>
+    or jump to it's <a
+      target="_blank"
+      href="https://github.com/phoenixframework/phoenix_live_view"
+    >GitHub Page</a>!
   </p>
 
   <h2>Features</h2>
@@ -29,7 +35,7 @@
     Once you have created a new bin you can open a TCP connection from a Linux/MacOS/WSL shell and send some data:
   </p>
   <pre>
-    $ nc <%= Tcpbin.host() %> <YOUR_BIN_PORT>
+    $ nc <%= App.host() %> &lt;YOUR_BIN_PORT&gt;
     Hello World!
   </pre>
 </section>
