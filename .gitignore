@@ -22,8 +22,7 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 tcpbin-*.tar
 
-# If NPM crashes, it generates a log, let's ignore it too.
-npm-debug.log
+*.log
 
 # The directory NPM downloads your dependencies sources to.
 /assets/node_modules/
