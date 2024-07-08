@@ -6,7 +6,6 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :tcpbin, TcpbinWeb.Endpoint,
-  check_origin: false,
   cache_static_manifest: "priv/static/cache_manifest.json",
   https: [port: 443, thousand_island_options: [transport_options: [sni_fun: &CertMagex.sni_fun/1]]]
 
