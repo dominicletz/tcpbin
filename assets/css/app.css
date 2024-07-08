@@ -3,3 +3,65 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+body {
+  font-family:Helvetica,Arial,sans-serif;
+}
+
+.hex {
+  font-family: monospace;
+  font-size: 85%;
+  line-height: 1.1;
+  display: block;
+}
+
+pre.data {
+  font-family: monospace;
+  font-size: 85%;
+  line-height: 1.1;
+  display: block;
+}
+
+pre.udp {
+  border-left: .3rem solid #69d900;
+  background-color: #daffda;
+}
+
+.open {
+  text-transform: uppercase;
+  font-family: monospace;
+  font-size: 85%;
+  line-height: 1.1;  
+  display: block;
+  text-align: center;
+  border-left: .3rem solid #0069d9;
+  border-bottom: .3rem solid #0069d9;
+}
+
+.close {
+  text-transform: uppercase;
+  font-family: monospace;
+  font-size: 85%;
+  line-height: 1.1;  
+  display: block;
+  text-align: center;
+  border-top: .3rem solid #0069d9;
+  border-left: .3rem solid #0069d9;
+}
+
+.from, .received {
+  font-size: 80%;
+  text-align: center;
+}
+
+table {
+  pre {
+    margin: 0;
+    word-break: break-all;
+    white-space: break-spaces;
+  }
+}
+
+body {
+  margin: 0;
+}

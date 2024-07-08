@@ -5,7 +5,7 @@ defmodule TcpbinWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {TcpbinWeb.LayoutView, :root}
+    plug :put_root_layout, html: {TcpbinWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -20,4 +20,9 @@ defmodule TcpbinWeb.Router do
     live "/", PageLive, :index
     live "/bin/:bin/", BinLive, :index
   end
+
+  # Other scopes may use custom stacks.
+  # scope "/api", TcpbinWeb do
+  #   pipe_through :api
+  # end
 end

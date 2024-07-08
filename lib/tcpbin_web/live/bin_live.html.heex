@@ -1,17 +1,21 @@
-<section>
-  <h1>bin <%= @id %></h1>
-  <table>
+<section class="mb-6">
+  <h1 class="text-2xl font-light md:text-3xl my-3">bin <%= @id %></h1>
+  <table class="w-full table-auto">
     <tr>
       <td>ID</td>
       <td><%= @id %></td>
     </tr>
     <tr>
       <td>TCP Port</td>
-      <td><pre class="data"><%= App.host() %>:<%= @port %></pre></td>
+      <td>
+        <pre class="text-sm bg-gray-200 border-blue-600 border-l-4 p-1 tcp"><%= App.host() %>:<%= @port %></pre>
+      </td>
     </tr>
     <tr>
       <td>UDP Port</td>
-      <td><pre class="udp"><%= App.host() %>:<%= @port %></pre></td>
+      <td>
+        <pre class="text-sm bg-gray-200 border-blue-600 border-l-4 p-1 udp"><%= App.host() %>:<%= @port %></pre>
+      </td>
     </tr>
     <tr>
       <td>Created</td>
@@ -22,7 +26,7 @@
 
 <section>
   <%= if length(@packets) > 0 do %>
-    <table class="data">
+    <table class="w-full table-auto border-spacing-0 border-collapse data">
       <tr>
         <th>From</th>
         <th>Received</th>
@@ -30,31 +34,29 @@
         <th>Hex</th>
       </tr>
       <%= for packet <- @packets do %>
-        <tr>
+        <tr class="border-b-2">
           <td class="from"><%= render_from(packet.from) %></td>
           <td class="received"><%= NaiveDateTime.to_time(packet.created) %></td>
           <%= if packet.type == :data or packet.type == :udp do %>
-            <td><pre class={packet.type}><%= render_data(packet.data) %></pre></td>
+            <td>
+              <pre class={["bg-gray-200 border-blue-600 border-l-4 p-3", packet.type]}><%= render_data(packet.data) %></pre>
+            </td>
             <td><span class="hex"><%= render_hex(packet.data) %></span></td>
           <% else %>
-            <td colspan="2"><span class={packet.type}>TCP <%= packet.type %></span></td>
+            <td colspan="2">
+              <span class={["text-sm bg-gray-200 border-blue-600 border-l-4 p-3", packet.type]}>
+                TCP <%= packet.type %>
+              </span>
+            </td>
           <% end %>
         </tr>
       <% end %>
     </table>
   <% else %>
-    <h2>There is no data yet in this bin</h2>
-
-    <p>To connect to this bin via TCP you can run this:</p>
-
-    <pre>
-nc <%= App.host() %> <%= @port %>
-</pre>
-
-    <p>Or if you want to send some UDP data:</p>
-
-    <pre>
-nc -u <%= App.host() %> <%= @port %>
-</pre>
+    <h2 class="text-xl font-light md:text-2xl my-3">There is no data yet in this bin</h2>
+    <p class="mb-3">To connect to this bin via TCP you can run this:</p>
+    <pre class="text-sm bg-gray-200 border-blue-600 border-l-4 p-3">nc <%= App.host() %> <%= @port %></pre>
+    <p class="mb-3">Or if you want to send some UDP data:</p>
+    <pre class="text-sm bg-gray-200 border-blue-600 border-l-4 p-3">nc -u <%= App.host() %> <%= @port %></pre>
   <% end %>
 </section>

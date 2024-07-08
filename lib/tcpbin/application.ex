@@ -11,6 +11,7 @@ defmodule Tcpbin.Application do
       TcpbinWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:tcpbin, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Tcpbin.PubSub},
+      {Registry, name: Registry, keys: :unique},
       # Start a worker by calling: Tcpbin.Worker.start_link(arg)
       # {Tcpbin.Worker, arg},
       # Start to serve requests, typically the last entry
