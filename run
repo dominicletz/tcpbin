@@ -13,7 +13,7 @@ export ERL_CRASH_DUMP_BYTES=5000000000
 export ERL_EPMD_ADDRESS=127.0.0.1
 export MIX_ENV=prod
 mix deps.get
-mix local.rebar --force
+mix local.rebar --force --if-missing
 mix assets.deploy
 mix phx.digest
 export ELIXIR_ERL_OPTIONS="+sbwt none -noinput -noshell -sname ${SNAME} +Mea min"
