@@ -32,7 +32,8 @@ defmodule Tcpbin.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:certmagex, "~> 1.0"},
+      # {:certmagex, "~> 1.0"},
+      {:certmagex, github: "dominicletz/certmagex"},
       {:phoenix, "~> 1.7.14"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
