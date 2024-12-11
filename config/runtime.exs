@@ -40,7 +40,10 @@ if config_env() == :prod do
 
   config :tcpbin, TcpbinWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
-    https: [port: 443, thousand_island_options: [transport_options: [sni_fun: &CertMagex.sni_fun/1]]],
+    https: [
+      port: 443,
+      thousand_island_options: [transport_options: [sni_fun: &CertMagex.sni_fun/1]]
+    ],
     secret_key_base: secret_key_base
 
   # ## SSL Support

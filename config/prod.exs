@@ -7,7 +7,10 @@ import Config
 # before starting your production server.
 config :tcpbin, TcpbinWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  https: [port: 443, thousand_island_options: [transport_options: [sni_fun: &CertMagex.sni_fun/1]]]
+  https: [
+    port: 443,
+    thousand_island_options: [transport_options: [sni_fun: &CertMagex.sni_fun/1]]
+  ]
 
 # Do not print debug messages in production
 config :logger, level: :info
