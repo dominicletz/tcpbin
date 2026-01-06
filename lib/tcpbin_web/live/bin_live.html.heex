@@ -21,6 +21,20 @@
       <td>Created</td>
       <td>{@created}</td>
     </tr>
+    <tr>
+      <td>TCP Echo</td>
+      <td>
+        <label class="flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            phx-click="toggle_echo"
+            checked={@echo}
+            class="mr-2"
+          />
+          <span>Echo TCP data back to sender</span>
+        </label>
+      </td>
+    </tr>
   </table>
 </section>
 

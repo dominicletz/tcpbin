@@ -2,7 +2,7 @@ defmodule TcpBin.Bin do
   use GenServer
   alias TcpBin.Bin
   require Logger
-  defstruct [:id, :packets, :socket, :udp_socket, :acceptor, :created, :clients]
+  defstruct [:id, :packets, :socket, :udp_socket, :acceptor, :created, :clients, :echo]
 
   def start() do
     id = "#{rand(5)}-#{System.os_time(:second)}"
@@ -28,7 +28,8 @@ defmodule TcpBin.Bin do
        udp_socket: udp,
        acceptor: acc,
        created: NaiveDateTime.utc_now(),
-       clients: %{}
+       clients: %{},
+       echo: false
      }}
   end
 
@@ -55,6 +56,8 @@ defmodule TcpBin.Bin do
   def created(id), do: call(id, :created)
   def packets(id), do: call(id, :packets)
   def port(id), do: call(id, :tcp_port)
+  def echo(id), do: call(id, :echo)
+  def toggle_echo(id), do: call(id, :toggle_echo)
 
   @impl true
   def handle_call(:created, _from, %Bin{created: created} = bin) do
@@ -70,6 +73,18 @@ defmodule TcpBin.Bin do
   def handle_call(:tcp_port, _from, %Bin{socket: socket} = bin) do
     {:ok, port} = :inet.port(socket)
     {:reply, port, bin}
+  end
+
+  @impl true
+  def handle_call(:echo, _from, %Bin{echo: echo} = bin) do
+    {:reply, echo, bin}
+  end
+
+  @impl true
+  def handle_call(:toggle_echo, _from, %Bin{echo: echo, id: id} = bin) do
+    new_echo = !echo
+    publish(id, {:echo, new_echo})
+    {:reply, new_echo, %Bin{bin | echo: new_echo}}
   end
 
   @impl true
@@ -89,7 +104,10 @@ defmodule TcpBin.Bin do
     add_packet(bin, port, %{data: data, type: :udp})
   end
 
-  def handle_info({:tcp, port, data}, bin) do
+  def handle_info({:tcp, port, data}, %Bin{echo: echo} = bin) do
+    if echo do
+      :gen_tcp.send(port, data)
+    end
     add_packet(bin, port, %{data: data, type: :data})
   end
 
