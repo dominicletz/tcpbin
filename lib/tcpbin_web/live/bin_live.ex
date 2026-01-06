@@ -15,6 +15,7 @@ defmodule TcpbinWeb.BinLive do
            created: Bin.created(id),
            port: Bin.port(id),
            packets: Bin.packets(id),
+           echo: Bin.echo(id),
            page_title: "Bin #{id}"
          )}
 
@@ -27,9 +28,21 @@ defmodule TcpbinWeb.BinLive do
   end
 
   @impl true
+  def handle_info({:echo, echo}, socket) do
+    {:noreply, assign(socket, echo: echo)}
+  end
+
+  @impl true
   def handle_info(packet, socket) do
     packets = socket.assigns.packets
     {:noreply, collect(assign(socket, packets: [packet | packets]))}
+  end
+
+  @impl true
+  def handle_event("toggle_echo", _params, socket) do
+    id = socket.assigns.id
+    _echo = Bin.toggle_echo(id)
+    {:noreply, socket}
   end
 
   def collect(socket) do
