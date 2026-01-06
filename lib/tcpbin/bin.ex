@@ -106,7 +106,10 @@ defmodule TcpBin.Bin do
 
   def handle_info({:tcp, port, data}, %Bin{echo: echo} = bin) do
     if echo do
-      :gen_tcp.send(port, data)
+      case :gen_tcp.send(port, data) do
+        :ok -> :ok
+        {:error, _reason} -> :ok
+      end
     end
     add_packet(bin, port, %{data: data, type: :data})
   end

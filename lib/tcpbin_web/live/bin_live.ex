@@ -41,8 +41,8 @@ defmodule TcpbinWeb.BinLive do
   @impl true
   def handle_event("toggle_echo", _params, socket) do
     id = socket.assigns.id
-    echo = Bin.toggle_echo(id)
-    {:noreply, assign(socket, echo: echo)}
+    _echo = Bin.toggle_echo(id)
+    {:noreply, socket}
   end
 
   def collect(socket) do
