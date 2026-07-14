@@ -111,6 +111,7 @@ defmodule TcpBin.Bin do
         {:error, _reason} -> :ok
       end
     end
+
     add_packet(bin, port, %{data: data, type: :data})
   end
 
