@@ -17,7 +17,7 @@ defmodule TcpbinWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import TcpbinWeb.Gettext
+  use Gettext, backend: TcpbinWeb.Gettext
 
   @doc """
   Renders a modal.

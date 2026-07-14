@@ -43,7 +43,7 @@ defmodule TcpbinWeb do
         layouts: [html: TcpbinWeb.Layouts]
 
       import Plug.Conn
-      import TcpbinWeb.Gettext
+      use Gettext, backend: TcpbinWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -85,7 +85,7 @@ defmodule TcpbinWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import TcpbinWeb.CoreComponents
-      import TcpbinWeb.Gettext
+      use Gettext, backend: TcpbinWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
